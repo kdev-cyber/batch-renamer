@@ -1,4 +1,5 @@
-\# Batch Renamer v2
+# Batch Renamer v2
+ ⚠️ Always run in dry mode first to preview changes before renaming files.
 
 
 
@@ -6,37 +7,37 @@ A simple Python tool to rename files in bulk with consistent numbering, prefixes
 
 
 
-\---
+---
 
 
 
-\## 🚀 Features
+## 🚀 Features
 
 
 
-\- Rename multiple files instantly
+- Rename multiple files instantly
 
-\- Optional name prefix (e.g., `Vacation - 001.png`)
+- Optional name prefix (e.g., `Vacation - 001.png`)
 
-\- Automatic numbering with padding (001, 002, 003…)
+- Automatic numbering with padding (001, 002, 003…)
 
-\- Dry run mode (preview changes before applying)
+- Dry run mode (preview changes before applying)
 
-\- Skips folders automatically
+- Skips folders automatically
 
-\- Skips unsupported file types
+- Skips unsupported file types
 
-\- Prevents duplicate filename conflicts
+- Prevents duplicate filename conflicts
 
-\- Clean summary output after execution
-
-
-
-\---
+- Clean summary output after execution
 
 
 
-\## 🧠 How It Works
+---
+
+
+
+## 🧠 How It Works
 
 
 
@@ -44,19 +45,19 @@ The script scans a target folder and renames files in order using:
 
 
 
-\- A customizable prefix
+- A customizable prefix
 
-\- A starting number
+- A starting number
 
-\- Zero-padded numbering format
-
-
-
-\### Example
+- Zero-padded numbering format
 
 
 
-\*\*Before:\*\*
+### Example
+
+
+
+**Before:**
 
 ```
 
@@ -70,7 +71,7 @@ notes.txt
 
 
 
-\*\*After:\*\*
+**After:**
 
 ```
 
@@ -84,43 +85,43 @@ Vacation - 003.txt
 
 
 
-\---
+---
 
 
 
-\## ⚙️ Usage
+## ⚙️ Usage
 
 
 
-1\. Run the script:
-
-```
-
-python batch\_renamer.py
+1. Run the script:
 
 ```
 
+python batch_renamer.py
 
-
-2\. Enter the required inputs:
-
-\- Target folder path
-
-\- Optional prefix
-
-\- Start number
-
-\- Number padding
-
-\- Dry run mode (y/n)
+```
 
 
 
-\---
+2. Enter the required inputs:
+
+- Target folder path
+
+- Optional prefix
+
+- Start number
+
+- Number padding
+
+- Dry run mode (y/n)
 
 
 
-\## 🔍 Dry Run Mode (Recommended)
+---
+
+
+
+## 🔍 Dry Run Mode (Recommended)
 
 
 
@@ -132,7 +133,7 @@ Example:
 
 ```
 
-\[DRY RUN] file.png -> Vacation - 001.png
+[DRY RUN] file.png -> Vacation - 001.png
 
 ```
 
@@ -142,11 +143,11 @@ No files will be changed in this mode.
 
 
 
-\---
+---
 
 
 
-\## ⚡ Live Mode
+## ⚡ Live Mode
 
 
 
@@ -156,49 +157,49 @@ Set dry run to `n` to apply changes:
 
 ```
 
-\[RENAME] file.png -> Vacation - 001.png
+[RENAME] file.png -> Vacation - 001.png
 
 ```
 
 
 
-\---
+---
 
 
 
-\## 📁 Supported File Types
+## 📁 Supported File Types
 
 
 
-\- Images: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
+- Images: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
 
-\- Videos: `.mp4`, `.mkv`, `.mov`, `.avi`
+- Videos: `.mp4`, `.mkv`, `.mov`, `.avi`
 
-\- Documents: `.txt`, `.pdf`, `.docx`
-
-
-
-\---
+- Documents: `.txt`, `.pdf`, `.docx`
 
 
 
-\## 🛡 Safety Features
+---
 
 
 
-\- Skips folders automatically
-
-\- Skips unsupported file types
-
-\- Prevents overwriting existing files by creating unique names
+## 🛡 Safety Features
 
 
 
-\---
+- Skips folders automatically
+
+- Skips unsupported file types
+
+- Prevents overwriting existing files by creating unique names
 
 
 
-\## 🧾 Example Output
+---
+
+
+
+## 🧾 Example Output
 
 
 
@@ -216,45 +217,45 @@ Done.
 
 
 
-\---
+---
 
 
 
-\## 📌 Notes
+## 📌 Notes
 
 
 
-\- Files are renamed in sorted order
+- Files are renamed in sorted order
 
-\- Prefix is optional (leave blank for numbering only)
+- Prefix is optional (leave blank for numbering only)
 
-\- Existing renamed files may be processed again if rerun
-
-
-
-\---
+- Existing renamed files may be processed again if rerun
 
 
 
-\## 🔮 Future Improvements
+---
 
 
 
-\- Remember last-used settings (persistent config)
-
-\- Skip already formatted filenames
-
-\- Custom file type filters
-
-\- GUI version
+## 🔮 Future Improvements
 
 
 
-\---
+- Remember last-used settings (persistent config)
+
+- Skip already formatted filenames
+
+- Custom file type filters
+
+- GUI version
 
 
 
-\## 👨‍💻 Author
+---
+
+
+
+## 👨‍💻 Author
 
 
 

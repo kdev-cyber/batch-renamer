@@ -1,6 +1,25 @@
 import os
 from helpers import get_input
 
+# ===== INPUT HELPERS =====
+
+
+def get_int_input(prompt, default):
+    user_value = get_input(prompt, default)
+
+    try:
+        number = int(user_value)
+    except ValueError:
+        print(f"[ERROR] {prompt} must be a whole number.")
+        exit()
+
+    if number < 1:
+        print(f"[ERROR] {prompt} must be 1 or higher.")
+        exit()
+
+    return number
+
+
 print("\n=== Batch Renamer v2 ===\n")
 
 # ===== INPUT =====
@@ -9,9 +28,9 @@ target_folder = get_input("Enter target folder", r"C:\Users\K\Desktop\Rename_Tes
 
 prefix = get_input("Enter name prefix (leave blank for none)", "")
 
-start_number = int(get_input("Start number", "1"))
+start_number = get_int_input("Start number", "1")
 
-padding = int(get_input("Number padding (e.g., 3 -> 001)", "3"))
+padding = get_int_input("Number padding (e.g., 3 -> 001)", "3")
 
 dry_run = get_input("Dry run mode? Preview only, no changes. (y/n)", "y").lower() == "y"
 

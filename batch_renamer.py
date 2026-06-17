@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from helpers import get_input
 
 # ===== INPUT HELPERS =====
@@ -51,6 +52,9 @@ allowed_extensions = (
     ".docx",
 )
 
+script_folder = os.path.dirname(os.path.abspath(__file__))
+log_path = os.path.join(script_folder, "rename_log.txt")
+
 # ===== VALIDATION =====
 
 if not os.path.exists(target_folder):
@@ -94,12 +98,15 @@ files = sorted(os.listdir(target_folder))
 counter = start_number
 renamed_count = 0
 skipped_count = 0
+log_entries = []
 
 for file in files:
     old_path = os.path.join(target_folder, file)
 
     if os.path.isdir(old_path):
-        print(f"[SKIP] Folder skipped: {file}")
+        message = f"[SKIP] Folder skipped: {file}"
+        print(message)
+        log_entries.append(message)
         skipped_count += 1
         continue
 
@@ -107,7 +114,9 @@ for file in files:
     ext = ext.lower()
 
     if ext not in allowed_extensions:
-        print(f"[SKIP] Unsupported file type: {file}")
+        message = f"[SKIP] Unsupported file type: {file}"
+        print(message)
+        log_entries.append(message)
         skipped_count += 1
         continue
 
@@ -122,10 +131,14 @@ for file in files:
     new_path = os.path.join(target_folder, safe_name)
 
     if dry_run:
-        print(f"[DRY RUN] {file} -> {safe_name}")
+        message = f"[DRY RUN] {file} -> {safe_name}"
+        print(message)
+        log_entries.append(message)
     else:
         os.rename(old_path, new_path)
-        print(f"[RENAME] {file} -> {safe_name}")
+        message = f"[RENAME] {file} -> {safe_name}"
+        print(message)
+        log_entries.append(message)
 
     counter += 1
     renamed_count += 1
@@ -133,9 +146,27 @@ for file in files:
 print("\n=== Summary ===")
 
 if dry_run:
+    summary_action = "previewed"
     print(f"Files previewed: {renamed_count}")
 else:
+    summary_action = "renamed"
     print(f"Files renamed: {renamed_count}")
 
 print(f"Files skipped: {skipped_count}")
 print("Done.\n")
+
+with open(log_path, "a", encoding="utf-8") as log_file:
+    log_file.write("\n=== Batch Renamer Run ===\n")
+    log_file.write(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+    log_file.write(f"Mode: {'DRY RUN' if dry_run else 'LIVE RENAME'}\n")
+    log_file.write(f"Target folder: {target_folder}\n")
+    log_file.write(f"Prefix: {prefix if prefix else '(none)'}\n")
+    log_file.write(f"Start number: {start_number}\n")
+    log_file.write(f"Padding: {padding}\n\n")
+
+    for entry in log_entries:
+        log_file.write(entry + "\n")
+
+    log_file.write(f"\nFiles {summary_action}: {renamed_count}\n")
+    log_file.write(f"Files skipped: {skipped_count}\n")
+    log_file.write("Done.\n")

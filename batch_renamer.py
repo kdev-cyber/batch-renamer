@@ -5,37 +5,31 @@ print("\n=== Batch Renamer v2 ===\n")
 
 # ===== INPUT =====
 
-target_folder = get_input(
-    "Enter target folder",
-    r"C:\Users\K\Desktop\Rename_Test"
-)
+target_folder = get_input("Enter target folder", r"C:\Users\K\Desktop\Rename_Test")
 
-prefix = get_input(
-    "Enter name prefix (leave blank for none)",
-    ""
-)
+prefix = get_input("Enter name prefix (leave blank for none)", "")
 
-start_number = int(get_input(
-    "Start number",
-    "1"
-))
+start_number = int(get_input("Start number", "1"))
 
-padding = int(get_input(
-    "Number padding (e.g., 3 -> 001)",
-    "3"
-))
+padding = int(get_input("Number padding (e.g., 3 -> 001)", "3"))
 
-dry_run = get_input(
-    "Dry run mode? Preview only, no changes. (y/n)",
-    "y"
-).lower() == "y"
+dry_run = get_input("Dry run mode? Preview only, no changes. (y/n)", "y").lower() == "y"
 
 # ===== SETTINGS =====
 
 allowed_extensions = (
-    ".jpg", ".jpeg", ".png", ".gif", ".webp",
-    ".mp4", ".mkv", ".mov", ".avi",
-    ".txt", ".pdf", ".docx"
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".webp",
+    ".mp4",
+    ".mkv",
+    ".mov",
+    ".avi",
+    ".txt",
+    ".pdf",
+    ".docx",
 )
 
 # ===== VALIDATION =====
@@ -53,7 +47,14 @@ if dry_run:
 else:
     print("\n[MODE] Live run enabled. Files will be renamed.\n")
 
+    confirm = get_input("Type RENAME to confirm live rename", "")
+
+    if confirm != "RENAME":
+        print("[CANCELLED] Live rename was not confirmed.")
+        exit()
+
 # ===== HELPERS =====
+
 
 def get_safe_name(folder, filename):
     base, ext = os.path.splitext(filename)
@@ -111,6 +112,11 @@ for file in files:
     renamed_count += 1
 
 print("\n=== Summary ===")
-print(f"Files renamed: {renamed_count}")
+
+if dry_run:
+    print(f"Files previewed: {renamed_count}")
+else:
+    print(f"Files renamed: {renamed_count}")
+
 print(f"Files skipped: {skipped_count}")
 print("Done.\n")

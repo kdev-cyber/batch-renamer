@@ -1,131 +1,174 @@
-# Batch Renamer v2
+# Batch Renamer
 
-⚠️ Always run in dry mode first to preview changes before renaming files.
+A safe Python file-renaming utility that previews rename changes before applying them.
 
-A simple Python tool to rename files in bulk with consistent numbering, prefixes, and safe preview mode.
+This tool is designed for cleaning up messy folders by renaming supported files into a clean numbered sequence, such as:
 
----
-
-## 🚀 Features
-
-- Rename multiple files instantly
-- Optional name prefix (e.g., `Vacation - 001.png`)
-- Automatic numbering with padding (001, 002, 003…)
-- Dry run mode (preview changes before applying)
-- Skips folders automatically
-- Skips unsupported file types
-- Prevents duplicate filename conflicts
-- Clean summary output after execution
-
----
-
-## 🧠 How It Works
-
-The script scans a target folder and renames files in order using:
-- A customizable prefix
-- A starting number
-- Zero-padded numbering format
-
-### Example
-
-**Before:**
-```
-Screenshot 1.png
-video.mkv
-notes.txt
+```text
+vacation_photo.jpg -> trip - 001.jpg
+screenshot.png -> trip - 002.png
+notes.pdf -> trip - 003.pdf
 ```
 
-**After:**
-```
-Vacation - 001.png
-Vacation - 002.mkv
-Vacation - 003.txt
+## Project Goal
+
+The goal of this project is to create a practical automation tool that can rename groups of files safely and predictably.
+
+Instead of immediately changing files, the script builds a rename plan, shows the user what will happen, and requires confirmation before live renaming.
+
+## Features
+
+* Rename files using a custom prefix
+* Automatically number files in sequence
+* Custom number padding, such as `001`, `002`, `003`
+* Dry run mode for previewing changes without renaming anything
+* Live rename confirmation using the exact word `RENAME`
+* Duplicate-safe naming to prevent overwriting existing files
+* Skips unsupported file types
+* Skips folders automatically
+* Friendly number input validation
+* Creates a local rename log after each run
+
+## Safety Features
+
+This tool is built with safety in mind.
+
+Before renaming files, it:
+
+* Checks that the target folder exists
+* Checks that the target path is actually a folder
+* Validates number inputs
+* Builds a rename plan before applying changes
+* Shows the full rename plan to the user
+* Requires explicit confirmation before live renaming
+* Avoids overwriting existing files by adding `_DUPLICATE_1`, `_DUPLICATE_2`, etc.
+
+## Supported File Types
+
+```text
+.jpg
+.jpeg
+.png
+.gif
+.webp
+.mp4
+.mkv
+.mov
+.avi
+.txt
+.pdf
+.docx
 ```
 
----
+## How to Run
 
-## ⚙️ Usage
+From the project folder, run:
 
-1. Run the script:
-```
+```powershell
 python batch_renamer.py
 ```
 
-2. Enter the required inputs:
-- Target folder path
-- Optional prefix
-- Start number
-- Number padding
-- Dry run mode (y/n)
+The script will ask for:
 
----
-
-## 🔍 Dry Run Mode (Recommended)
-
-Use dry run mode (`y`) to preview changes before applying them.
-
-Example:
-```
-[DRY RUN] file.png -> Vacation - 001.png
+```text
+Target folder
+Name prefix
+Start number
+Number padding
+Dry run mode
 ```
 
-No files will be changed in this mode.
+## Example Dry Run
 
----
+```text
+=== Batch Renamer v3 ===
 
-## ⚡ Live Mode
+Enter target folder [C:\Users\K\Desktop\Rename_Test]:
+Enter name prefix (leave blank for none) []: test
+Start number [1]:
+Number padding (e.g., 3 -> 001) [3]:
+Dry run mode? Preview only, no changes. (y/n) [y]:
 
-Set dry run to `n` to apply changes:
-```
-[RENAME] file.png -> Vacation - 001.png
-```
+=== Rename Plan ===
 
----
+[PLAN] photo.jpg -> test - 001.jpg
+[PLAN] image.png -> test - 002.png
 
-## 📁 Supported File Types
+[MODE] Dry run enabled. No files will be renamed.
 
-- Images: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`
-- Videos: `.mp4`, `.mkv`, `.mov`, `.avi`
-- Documents: `.txt`, `.pdf`, `.docx`
+=== Results ===
 
----
+[DRY RUN] photo.jpg -> test - 001.jpg
+[DRY RUN] image.png -> test - 002.png
 
-## 🛡 Safety Features
-
-- Skips folders automatically
-- Skips unsupported file types
-- Prevents overwriting existing files by creating unique names
-
----
-
-## 🧾 Example Output
-
-```
 === Summary ===
-Files renamed: 3
-Files skipped: 1
+Files previewed: 2
+Files skipped: 0
 Done.
 ```
 
----
+## Example Live Rename
 
-## 📌 Notes
+To perform a live rename, choose `n` for dry run mode.
 
-- Files are renamed in sorted order
-- Prefix is optional (leave blank for numbering only)
-- Existing renamed files may be processed again if rerun
+The script will show the rename plan first, then ask for confirmation:
 
----
+```text
+Type RENAME to confirm live rename []:
+```
 
-## 🔮 Future Improvements
+The rename only happens if the user types:
 
-- Remember last-used settings (persistent config)
-- Skip already formatted filenames
-- Custom file type filters
-- GUI version
+```text
+RENAME
+```
 
----
+Any other response cancels the live rename.
 
-## 👨‍💻 Author
+## Log File
 
-Built as part of a growing Python automation toolkit focused on real-world file management and workflow optimization.
+The script creates a local file called:
+
+```text
+rename_log.txt
+```
+
+This log records each run, including:
+
+* Time of run
+* Mode used
+* Target folder
+* Prefix
+* Start number
+* Padding
+* Rename or preview results
+* Summary counts
+
+The log file is ignored by Git so local test logs do not get committed to the repository.
+
+## Tech Used
+
+* Python
+* VS Code
+* Git
+* GitHub
+
+## Project Status
+
+Portfolio-ready command-line utility.
+
+Completed:
+
+* Dry run preview mode
+* Live rename confirmation
+* Rename plan before applying changes
+* Duplicate-safe naming
+* Number input validation
+* Local rename logging
+* Git ignore cleanup for generated logs
+
+Planned improvements:
+
+* Add screenshots of terminal output
+* Add before-and-after example folder images
+* Consider a simple GUI version later
